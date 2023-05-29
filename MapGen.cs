@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 public class MapGen : MonoBehaviour
 {
-    public Tile[] tiles, puddles;
+    public Tile[] tiles, puddles, roads1, roads2, roads3, roads4, roads5, roads;
     public Tilemap tilemap, tilemap1, tilemap2;
     public Tile tileRock, tileRocks;
     private void Awake()
@@ -670,12 +670,85 @@ public class MapGen : MonoBehaviour
                     tilemap1.SetTile(MapPos, tile1);
                 }
             }
+        MapPos.x = 0;
+        MapPos.y = 0;
+        var road0 = roads1[3];
+        tilemap2.SetTile(MapPos, road0);
+        for (MapPos.x = 0; MapPos.x <= 100; MapPos = MapPos + Vector3Int.right)
+        {
+            int l = Random.Range(0, 100);
+            if ((tilemap1.GetTile(MapPos) != tileRock) && (l % 40 == 0))
+            {
+                for (int i = 0; i < roads1.Length; i++)
+                    if (tilemap2.GetTile(MapPos + Vector3Int.left) == roads1[i])
+                    {
+                        var road = roads3[Random.Range(0, roads3.Length)];
+                        tilemap2.SetTile(MapPos, road);
+                    }
+                    else
+                    {
+                        var road = roads[Random.Range(0, roads.Length)];
+                        tilemap2.SetTile(MapPos, road);
+                    }
+            }
+        }
+        MapPos.x = 0;
+        MapPos = MapPos + Vector3Int.up;
+        for (MapPos.y = 1; MapPos.y <= 100; MapPos = MapPos + Vector3Int.up)
+        {
+            int l1 = Random.Range(0, 100);
+            if ((tilemap1.GetTile(MapPos) != tileRock) && (l1 % 40 == 0))
+            {
+                for (int i = 0; i < roads2.Length; i++)
+                    if (tilemap2.GetTile(MapPos + Vector3Int.down) == roads2[i])
+                    {
+                        var road = roads4[Random.Range(0, roads4.Length)];
+                        tilemap2.SetTile(MapPos, road);
+                    }
+                    else
+                    {
+                        var road = roads[Random.Range(0, roads.Length)];
+                        tilemap2.SetTile(MapPos, road);
+                    }
+            }
+        }
+        MapPos.y = 0;
+        MapPos = MapPos + Vector3Int.right;
+        for (MapPos.x = 1; MapPos.x <= 100; MapPos = MapPos + Vector3Int.right)
+            for (MapPos.y = 1; MapPos.y <= 100; MapPos = MapPos + Vector3Int.up)
+            {
+                int l2 = Random.Range(0, 100);
+                for (int i = 0; i < roads1.Length; i++)
+                    for (int j = 0; j < roads2.Length; j++)
+                        if ((tilemap1.GetTile(MapPos) != tileRock))
+                        if (tilemap2.GetTile(MapPos + Vector3Int.left) == roads1[i])
+                        {
+                            if (tilemap2.GetTile(MapPos + Vector3Int.down) == roads2[j])
+                            {
+                                var road = roads5[Random.Range(0, roads5.Length)];
+                                tilemap2.SetTile(MapPos, road);
+                            }
+                            else
+                            {
+                                var road = roads3[Random.Range(0, roads3.Length)];
+                                tilemap2.SetTile(MapPos, road);
+                            }
+                        }
+                        else
+                        {
+                            if (tilemap2.GetTile(MapPos + Vector3Int.down) == roads2[j])
+                            {
+                                var road = roads4[Random.Range(0, roads4.Length)];
+                                tilemap2.SetTile(MapPos, road);
+                            }
+                        }
+            }
         for (MapPos.x = 0; MapPos.x <= 100; MapPos = MapPos + Vector3Int.right)
             for (MapPos.y = 0; MapPos.y <= 100; MapPos = MapPos + Vector3Int.up)
             {
-                int j = Random.Range(0, 100);
-
-                if ((j % 7 == 0) && (tilemap1.GetTile(MapPos) != tileRock) && ((tilemap1.GetTile(MapPos + Vector3Int.down) == tileRock)
+                int g = Random.Range(0, 100);
+                for (int i = 0; i < roads.Length; i++)
+                if ((g % 7 == 0) && (tilemap1.GetTile(MapPos) != tileRock) && (tilemap2.GetTile(MapPos) != roads[i]) && ((tilemap1.GetTile(MapPos + Vector3Int.down) == tileRock)
                     || (tilemap1.GetTile(MapPos + Vector3Int.up) == tileRock)
                     || (tilemap1.GetTile(MapPos + Vector3Int.left) == tileRock)
                     || (tilemap1.GetTile(MapPos + Vector3Int.right) == tileRock)
@@ -691,13 +764,13 @@ public class MapGen : MonoBehaviour
         for (MapPos.x = 0; MapPos.x <= 100; MapPos = MapPos + Vector3Int.right)
             for (MapPos.y = 0; MapPos.y <= 100; MapPos = MapPos + Vector3Int.up)
             {
-                int j = Random.Range(0, 100);
-
-                if ((j % 25 == 0) && (tilemap1.GetTile(MapPos) != tileRock) && (tilemap2.GetTile(MapPos) != tileRocks))
-                {
+                int m = Random.Range(0, 100);
+                for (int i = 0; i < roads.Length; i++)
+                    if ((m % 25 == 0) && (tilemap1.GetTile(MapPos) != tileRock) && (tilemap2.GetTile(MapPos) != roads[i]) && (tilemap2.GetTile(MapPos) != tileRocks))
+                    {
                     var tile2 = puddles[Random.Range(0, puddles.Length)];
                     tilemap2.SetTile(MapPos, tile2);
-                }
+                    }
             }
     }
 }
