@@ -112,9 +112,10 @@ GameObject:
   - component: {fileID: 196611001425210145}
   - component: {fileID: 2899735164918864029}
   - component: {fileID: 4995774976110874858}
+  - component: {fileID: 6337683745716497245}
   m_Layer: 0
   m_Name: Wood Gosling
-  m_TagString: Untagged
+  m_TagString: Tree
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,8 +186,8 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 2
-  m_SpriteSortPoint: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 1
 --- !u!70 &4995774976110874858
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -203,3 +204,19 @@ CapsuleCollider2D:
   m_Offset: {x: 0.06863971, y: 1.0536622}
   m_Size: {x: 1.0923975, y: 0.70222044}
   m_Direction: 1
+--- !u!114 &6337683745716497245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8646376969964040148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

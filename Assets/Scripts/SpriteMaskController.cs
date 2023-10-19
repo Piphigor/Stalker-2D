@@ -23,10 +23,9 @@ public class SpriteMaskController : MonoBehaviour
         spriteMaskCollider = GetComponent<Collider2D>();
         spriteMaskCollider.isTrigger = true;
     }
-    
+
     private void Update()
     {
-        
         if (checking)
         {
             foreach (SpriteRenderer renderer in otherRendereres)
@@ -37,7 +36,8 @@ public class SpriteMaskController : MonoBehaviour
                     playerSpriteRenderer.sortingLayerName == renderer.sortingLayerName
                     && playerSpriteRenderer.sortingOrder <= renderer.sortingOrder
                     //check the Y sorting order
-                    && playerSpriteRenderer.transform.position.y > renderer.transform.position.y)
+                    //&& playerSpriteRenderer.transform.position.y > renderer.transform.position.y
+                    )
                 {
                     //if yes enable the sprite mask
                     spriteMask.enabled = true;
@@ -57,7 +57,6 @@ public class SpriteMaskController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.isTrigger == false)
             return;
         SpriteRenderer spriteRenderer = collision.GetComponent<SpriteRenderer>();
@@ -65,6 +64,7 @@ public class SpriteMaskController : MonoBehaviour
         {
             otherRendereres.Add(spriteRenderer);
             checking = true;
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         }
     }
 
@@ -75,6 +75,7 @@ public class SpriteMaskController : MonoBehaviour
         SpriteRenderer spriteRenderer = collision.GetComponent<SpriteRenderer>();
         if (spriteRenderer != null)
         {
+            spriteRenderer.maskInteraction = SpriteMaskInteraction.None;
             otherRendereres.Remove(spriteRenderer);
             if (otherRendereres.Count <= 0)
             {
@@ -85,5 +86,4 @@ public class SpriteMaskController : MonoBehaviour
 
         }
     }
-
 }
