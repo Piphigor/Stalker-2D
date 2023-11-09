@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
 using NavMeshPlus.Components;
+using System.Text.RegularExpressions;
 
 public class MapGen2 : MonoBehaviour
 {
@@ -25,7 +26,6 @@ public class MapGen2 : MonoBehaviour
     private int mapWidth = 50;
     private int mapHeight = 50;
     private int newNoise = 0;
-
     public float noiseScale = 0.1f;
     float heightThreshold = 0.0f;
 
@@ -51,16 +51,8 @@ public class MapGen2 : MonoBehaviour
         {
             Gen();
         }
-        if (Input.GetKeyUp("f"))
-        {
-            Save mcs = mc.GetComponent<Save>();
-            if (mcs.enabled == false)
-                mcs.enabled = true;
-            else if (mcs.enabled == true)
-                mcs.enabled = false;
-        }
-        //navmesh.GetComponent<NavMeshSurface>().UpdateNavMesh(navmesh.GetComponent<NavMeshSurface>().navMeshData);
-        //navmesh.GetComponent<NavMeshSurface>().RemoveData();
+        navmesh.GetComponent<NavMeshSurface>().UpdateNavMesh(navmesh.GetComponent<NavMeshSurface>().navMeshData);
+        navmesh.GetComponent<NavMeshSurface>().RemoveData();
     }
 
     private Vector3 IsoToN(Vector3Int mps)
